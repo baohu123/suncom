@@ -16,6 +16,8 @@ public interface AdminService {
 	UserAdmin loginIn(String userid, String password);
 
 	// すべてのユーザーを照会する
-	List<UserAdmin> queryAllUser();
+	List<UserAdmin> queryAllUserFSDAFSFSAFASFASFASFASFAS();
+
+
 
 }
