@@ -9,7 +9,7 @@ import com.suncom.entity.UserAdmin;
 @Service
 public interface AdminService {
 
-	// ユーザーで検索
+	// ユーザーで検索dddd
 	UserAdmin findByUsername(int pkid);
 
 	// ログイン方法
