@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!-- 
+<script>
+    function downloadCsv() {
+        // 获取 HTML 表格数据
+        var table = document.getElementById('myTable');
+        //var headerRow = table.getElementsByTagName('thead')[1].getElementsByTagName('tr')[1];
+        var rows = table.getElementsByTagName('tr');
+
+
+        // 创建 CSV 格式数据
+        var csv = '';
+        for (var i = 1; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            for (var j = 1; j < cells.length; j++) {
+                csv += cells[j].textContent + ',';
+            }
+            csv += '\n';
+        }
+
+        // 创建并下载 CSV 文件
+        var link = document.createElement('a');
+        link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+        link.download = 'mydata.csv';
+        link.click();
+    }
+</script> -->
+<head>
+    <meta charset="UTF-8">
+    <title>UserQustionListPage</title><!-- 
+    新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- 
+    bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<h1 align="center">サンコム個人情報研修システム</h1>
+<!-- <p></p>
+<p></p>
+
+
+  <tr>
+    <td>
+    <div style="text-align: left;">
+      年度：
+      <input type="text" id="year-input">
+    </td>
+    <td>
+      <div style="text-align: right;">
+        flg：
+        <select id="flg-select">
+          <option value="option1">选项1</option>
+          <option value="option2">选项2</option>
+          <option value="option3">选项3</option>
+        </select>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <div style="text-align: left;">
+      问题：
+      <input type="text" id="question-input">
+    </td>
+    <td>
+      <div style="text-align: right;">
+        <button>搜索</button>
+        <button>新增</button>
+        <button>结果</button>
+      </div>
+    </td>
+  </tr>
+
+
+
+
+<br><br>
+<div style="align-content: center">
+    <form action="/query" method="post">
+        <input type="text" name="QuestionID"  placeholder="質問IDを入力してください！"><input th:value="検査" type="submit">
+    </form>
+</div>
+
+
+<br><br>
+<div>
+<button onclick="downloadCsv()">CSVダウンロード</button>
+</div>
+
+</body>
+
+
+<p></p>
+<p></p> -->
+
+<table>
+  <tr>
+    <td><button>年度</button></td>
+    <td><button>表示フラグ </button></td>
+  </tr>
+</table>
+
+<br><br>
+
+<table>
+  <tr>
+    <td><button>検索</button></td>
+    <td>
+    <button>新規</button></td>
+    <td><button>結果一覧</button></td>
+  </tr>
+</table>
+
+
+<br><br>
+
+<table>
+  <tr>
+    <td><button>コピー年度</button></td>
+    <td><button>レコードコピー</button></td>
+  </tr>
+</table>
+<br><br>
+
+<div id = "selectResult">
+    <table class="table table-dark table-hover" id="myTable">
+        <thead>
+        <tr>
+            <th>操作</th>
+            <th>年度</th>
+            <th>質問ID</th>
+            <th>質問内容</th>
+            <th>表示Flg</th>
+            <th>点数</th>
+            <th>登録時間</th>
+            <th>並び順</th>
+            
+       
+            
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="userQuestion : ${userQuestion}">
+            <td>
+            	
+                <a th:href = "@{/userQuestion+{id}(id=${userQuestion.questionid})}">編集</a>
+                <a th:href = "@{/deleteUserQuestion+{id}(id=${userQuestion.questionid})}" id = "delete">削除</a>
+                
+            </td>
+            <td th:text="${userQuestion.year}"></td>
+            <td th:text="${userQuestion.questionid}"></td>
+            <td th:text="${userQuestion.question}"></td>
+            <td th:text="${userQuestion.disp_flg}"></td>
+            <td th:text="${userQuestion.score}"></td>
+            <td th:text="${userQuestion.commitdate}"></td>
+            <td th:text="${userQuestion.disp_sort}"></td>
+            
+            
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- <div id = "addUser">
+    <form name="addUser">
+       
+    <table>
+        <tr>
+            <td>年度：</td>
+            <td><input type="text" name="year"id="year"></td>
+        </tr>
+
+        <tr>
+            <td>メール：</td>
+            <td><input type="text" name="MAIL" id = "MAIL"></td>
+
+        </tr>
+        <tr>
+            <td>会社名：</td>
+            <td><input type="text" name="company" id="company"></td>
+        </tr>
+        <tr>
+            <td>氏名：</td>
+            <td><input type="text" name="username" id="username"></td>
+        </tr>
+        <tr>
+            <td>表示フラグ：</td>
+            <td >
+                <select name="password" id="password" >
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>質問内容：</td>
+            <td><input type="text" name="question" id="question"></td>
+        </tr>
+        <tr>
+            <td>登録時間：</td>
+            <td><input type="date" name="date" id="date"></td>
+        </tr>
+        <tr>
+            <td>点数：</td>
+            <td><input type="text" name="score" id="score"></td>
+        </tr>
+    </table>
+
+
+    </form>
+
+    <div align="center">
+        <button  id = "add">新規</button>
+    </div>
+
+</div> -->
+
+<!-- <script >
+    //字符串判空方法
+    function isBlank(str){
+        if(str == "" || str == null || str == undefined){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    //添加用户js响应事件
+    $("#add").click(function(){
+        var year = document.forms["addUser"]["year"].value;
+        var MAIL = document.forms["addUser"]["MAIL"].value;
+        var company = document.forms["addUser"]["company"].value;
+        var username = document.forms["addUser"]["username"].value;
+        var password = document.forms["addUser"]["password"].value;
+        var question = document.forms["addUser"]["question"].value;
+        var date = document.forms["addUser"]["date"].value;
+        var score = document.forms["addUser"]["score"].value;
+        //判断是否有未填项
+        if(isBlank(year) || isBlank(MAIL) || isBlank(company) || isBlank(username)
+            || isBlank(password) || isBlank(question) || isBlank(date) || isBlank(score)){
+            window.confirm("请完善信息");
+        }else {
+            var param = {
+                "year": year,
+                "MAIL": MAIL,
+                "company": company,
+                "username": username,
+                "password": password,
+                "question": question,
+                "date": date,
+                "score": score
+            };
+            $.ajax({
+                url:"/addUser", //请求url
+                data: param,    //请求参数
+                async: true,    //是否异步
+                success: function f(result) {
+                    //window.confirm(result.msg); //新增用户成功提示框
+                    location.href = "users";    //重新加载界面，同步数据库信息
+                }
+            });
+
+        }
+
+    });
+</script>  -->
+
+
+
+</html>

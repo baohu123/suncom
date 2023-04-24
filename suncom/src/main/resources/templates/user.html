@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>userQuestionAddPage</title>
+  
+  	  <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  
+</head>
+
+<style>  
+
+           body {
+              background-color:rgb(182, 176, 232); 
+      }
+      #aaa{
+        background-color: #4CAF50; 
+}
+
+		.button {
+			 background-color: #4CAF50; 
+		}
+	</style>
+
+<body>
+         
+	<br>	<br>
+
+<h1 style="text-align: center;">サンコム個人情報研修システム</h1>
+<br>
+<br>
+<div id = "addUserQuestion" align="center">
+    <form name="addUserQuestion">
+       
+    <table>
+        <tr>
+            <td>年度：</td>
+            <td><input type="text" name="year"id="year"></td>
+        </tr>
+        
+        <tr>
+            <td>mail：</td>
+            <td><input type="text" name="mail"id="mail"></td>
+        </tr>
+        
+        <tr>
+            <td>username：</td>
+            <td><input type="text" name="username"id="username"></td>
+        </tr>
+        
+        <tr>
+            <td>company:</td>
+            <td><input type="text" name="company"id="company"></td>
+        </tr>
+
+        
+        
+    </table>
+
+
+    </form>
+
+    <div align="center">
+       
+        <button  id="aaa">新规</button>
+		<button type="button" class="button" onclick="window.history.back()">取消</button>
+		
+    </div>
+</div>
+<script >
+    //字符串判空方法
+    function isBlank(str){
+        if(str == "" || str == null || str == undefined){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    //添加用户js响应事件
+    $("#aaa").click(function(){
+        var year = document.forms["addUserQuestion"]["year"].value;
+
+        var mail = document.forms["addUserQuestion"]["mail"].value;
+
+        var username = document.forms["addUserQuestion"]["username"].value;
+
+        var company = document.forms["addUserQuestion"]["company"].value;
+        
+        //判断是否有未填项
+        if(isBlank(year) ){
+            window.confirm("请完善信息");
+        }else {
+            var param = {
+                "year": year,
+                "mail": mail,
+                "username": username,
+                "company": company
+            };
+            $.ajax({
+                url:"/addUserResult", //请求url
+                data: param,    //请求参数
+                async: true,    //是否异步
+                success: function f(result) {
+                    window.confirm(result.msg); //新增用户成功提示框
+                    location.href = "user";    //重新加载界面，同步数据库信息
+                }
+            });
+
+        }
+
+    });
+</script>  
+</body>
+</html>

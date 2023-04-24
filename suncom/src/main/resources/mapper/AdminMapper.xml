@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suncom.dao.AdminDao">
+
+    <select id="findByUsername" parameterType="Integer" resultType="com.suncom.entity.UserAdmin">
+        SELECT * FROM user_admin
+        WHERE pkid = #{pkid};
+    </select>
+    
+    <select id="loginIn" parameterType="String" resultType="com.suncom.entity.UserAdmin">
+        SELECT * FROM user_admin
+        WHERE mail = #{mail}
+        AND password = #{password};
+    </select>
+    
+    <select id="queryAllUser" resultType="com.suncom.entity.UserAdmin">
+        SELECT * FROM user_admin ;
+    </select>
+
+</mapper>

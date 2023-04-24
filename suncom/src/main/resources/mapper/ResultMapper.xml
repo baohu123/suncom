@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suncom.dao.ResultDao">
+
+    
+    <select id="queryById" parameterType="Integer" resultType="com.suncom.entity.UserResult">
+        SELECT * FROM user_result
+        WHERE questionid = #{questionid};
+    </select>
+
+
+    <insert id="addUser" parameterType="com.suncom.entity.UserResult">
+        INSERT InTO
+           user_result(mail,username,company,deploy,year,questionid,userinputres,commitdate)
+        values
+            (#{mail},#{username},#{company},#{deploy},#{year},#{questionid},#{userinputres},#{commitdate});
+    </insert>
+    
+
+    <delete id="dropUser" parameterType="Integer">
+        DELETE FROM user_result
+        WHERE questionid = #{questionid};
+    </delete>
+
+
+    <update id="modifyUser" parameterType="com.suncom.entity.UserResult">
+        UPDATE user_result
+        SET mail = #{mail},
+            username = #{username},
+            company = #{company},
+            deploy = #{deploy},
+            year = #{year},
+            questionid = #{questionid},
+            userinputres = #{userinputres},
+            commitdate = #{commitdate}
+        WHERE questionid = #{questionid};
+    </update>
+
+    <select id="queryAllUser" resultType="com.suncom.entity.UserResult">
+        SELECT * FROM user_result ;
+    </select>
+
+</mapper>
